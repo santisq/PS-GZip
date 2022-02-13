@@ -27,11 +27,7 @@ param(
         $PSCmdlet.WriteError($_)
     }
     finally {
-        ($gzip, $outStream, $inStream).ForEach({
-            if($_ -is [IDisposable]) {
-                $_.Dispose()
-            }
-        })
+        ($gzip, $outStream, $inStream).ForEach('Dispose')
     }
     try {
         [Convert]::ToBase64String($outStream.ToArray())
