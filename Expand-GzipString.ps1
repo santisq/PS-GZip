@@ -4,12 +4,12 @@ using namespace System.IO
 using namespace System.IO.Compression
 
 function Expand-GzipString {
-[cmdletbinding()]
-param(
-    [Parameter(Mandatory, ValueFromPipeline)]
-    [string]$String,
-    [string]$Encoding = 'UTF8'
-)
+    [cmdletbinding()]
+    param(
+        [Parameter(Mandatory, ValueFromPipeline)]
+        [string]$String,
+        [string]$Encoding = 'UTF8'
+    )
 
     try {
         $bytes = [Convert]::FromBase64String($String)
