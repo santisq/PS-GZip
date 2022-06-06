@@ -4,7 +4,7 @@ using namespace System.IO
 using namespace System.IO.Compression
 
 function Expand-GzipFile {
-[cmdletbinding()]
+    [cmdletbinding()]
     param(
         [Parameter(Mandatory, ValueFromPipelineByPropertyName)]
         [Alias('FullName')]
