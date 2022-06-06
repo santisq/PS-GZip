@@ -4,13 +4,13 @@ using namespace System.IO
 using namespace System.IO.Compression
 
 function Compress-GzipFile {
-[cmdletbinding()]
-param(
-    [Parameter(Mandatory, ValueFromPipeline)]
-    [string]$Path,
-    [Parameter(Mandatory)]
-    [string]$DestinationPath
-)
+    [cmdletbinding()]
+    param(
+        [Parameter(Mandatory, ValueFromPipeline)]
+        [string]$Path,
+        [Parameter(Mandatory)]
+        [string]$DestinationPath
+    )
 
     try {
         $compressed = [File]::Create($DestinationPath)
