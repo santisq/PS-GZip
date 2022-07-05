@@ -44,8 +44,6 @@ Length
 - Compressing a File
 
 ```powershell
-PS /> $temp = New-TemporaryFile test
-argument 'test'.
 PS /> $temp = New-TemporaryFile
 PS /> 'Hello world!' | Set-Content $temp
 PS /> Compress-GzipFile $temp -DestinationPath test.gz
