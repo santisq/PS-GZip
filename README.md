@@ -1,31 +1,63 @@
-# Compress and Expand Strings in PowerShell using Gzip
+# PS-Gzip Module
 
-### Description
+## Description
 
-Two little PowerShell functions to Compress and Expand strings using the [GZipStream Class](https://docs.microsoft.com/en-us/dotnet/api/system.io.compression.gzipstream).
+PS-GZip Module is a set of PowerShell functions designed to compress and expand strings and files using the [GZipStream Class](https://docs.microsoft.com/en-us/dotnet/api/system.io.compression.gzipstream).
 
-### Parameters
+See the [Docs folder](/PS-GZip/Docs/) for details on each function.
 
-| Parameter Name | Description |
-| --- | --- |
-| `-String` | The string to compress or expand |
-| `-Encoding` | Character encoding for the input string. __Default is UTF8__ |
-| `[<CommonParameters>]` | See [`about_CommonParameters`](https://go.microsoft.com/fwlink/?LinkID=113216) |
-
-### Requirements
+## Requirements
 
 Requires PowerShell 5.1 and above.
 
-### Usage
+## Examples
 
-- `Compress-GzipString 'hello world!'` Compresses the input string and outputs a _Base64 Gzip compressed string_.
-- `Expand-GzipString 'H4sIAAAAAAAAA8tIzcnJVyjPL8pJUQQAbcK0AwwAAAA='` Expands the _Base64 Gzip compressed string_ into a _string_.
+- Compressing a String
 
-### Example using Lorem Ipsum API
+```powershell
+PS /> Compress-GzipString 'Hello world!'
 
+H4sIAAAAAAAACvNIzcnJVyjPL8pJUQQAlRmFGwwAAAA=
 ```
+
+- Expanding a Base64 GZip compressed String
+
+```powershell
+PS /> Expand-GzipString H4sIAAAAAAAACvNIzcnJVyjPL8pJUQQAlRmFGwwAAAA=
+
+Hello world!
+```
+- An example using Lorem Ipsum API
+
+```powershell
 $loremIp = Invoke-RestMethod loripsum.net/api/10/long
 $compressedLoremIp = Compress-GzipString $loremIp
 $loremIp, $compressedLoremIp | Select-Object Length
+
+Length
+------
+  8101
+  4928
+
 (Expand-GzipString $compressedLoremIp) -eq $loremIp # => # Should be True
+```
+- Compressing a File
+
+```powershell
+PS /> $temp = New-TemporaryFile test
+argument 'test'.
+PS /> $temp = New-TemporaryFile
+PS /> 'Hello world!' | Set-Content $temp
+PS /> Compress-GzipFile $temp -DestinationPath test.gz
+PS /> Remove-Item $temp
+```
+
+- Expanding a Gzip compressed File
+
+```powershell
+PS /> Get-Item test.gz | Expand-GzipFile
+
+Hello world!
+
+PS /> Remove-Item test.gz
 ```
