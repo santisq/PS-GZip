@@ -39,11 +39,11 @@ function Compress-GzipFile {
     )
 
     try {
-        $Path = $PSCmdlet.GetUnresolvedProviderPathFromPSPath($Path)
+        $Path            = $PSCmdlet.GetUnresolvedProviderPathFromPSPath($Path)
         $DestinationPath = $PSCmdlet.GetUnresolvedProviderPathFromPSPath($DestinationPath)
-        $outStream = [File]::Open($DestinationPath, [FileMode]::CreateNew)
-        $inStream  = [File]::Open($Path, [FileMode]::Open)
-        $gzip = [GZipStream]::new($outStream, [CompressionMode]::Compress, $CompressionLevel)
+        $outStream       = [File]::Open($DestinationPath, [FileMode]::CreateNew)
+        $inStream        = [File]::Open($Path, [FileMode]::Open)
+        $gzip            = [GZipStream]::new($outStream, [CompressionMode]::Compress, $CompressionLevel)
         $inStream.CopyTo($gzip)
     }
     catch {
@@ -69,10 +69,10 @@ function Compress-GzipString {
     )
 
     try {
-        $enc = [Encoding]::GetEncoding($Encoding)
+        $enc       = [Encoding]::GetEncoding($Encoding)
         $outStream = [MemoryStream]::new()
-        $gzip = [GZipStream]::new($outStream, [CompressionMode]::Compress, $CompressionLevel)
-        $inStream = [MemoryStream]::new($enc.GetBytes($string))
+        $gzip      = [GZipStream]::new($outStream, [CompressionMode]::Compress, $CompressionLevel)
+        $inStream  = [MemoryStream]::new($enc.GetBytes($string))
         $inStream.CopyTo($gzip)
     }
     catch {
@@ -103,11 +103,11 @@ function Expand-GzipFile {
     )
 
     try {
-        $Path = $PSCmdlet.GetUnresolvedProviderPathFromPSPath($Path)
-        $enc  = [Encoding]::GetEncoding($Encoding)
+        $Path      = $PSCmdlet.GetUnresolvedProviderPathFromPSPath($Path)
+        $enc       = [Encoding]::GetEncoding($Encoding)
         $outStream = [MemoryStream]::new()
         $inStream  = [File]::Open($Path, [FileMode]::Open)
-        $gzip = [GZipStream]::new($inStream, [CompressionMode]::Decompress)
+        $gzip      = [GZipStream]::new($inStream, [CompressionMode]::Decompress)
         $gzip.CopyTo($outStream)
         $enc.GetString($outStream.ToArray())
     }
@@ -131,11 +131,11 @@ function Expand-GzipString {
     )
 
     try {
-        $enc   = [Encoding]::GetEncoding($Encoding)
-        $bytes = [Convert]::FromBase64String($String)
+        $enc       = [Encoding]::GetEncoding($Encoding)
+        $bytes     = [Convert]::FromBase64String($String)
         $outStream = [MemoryStream]::new()
         $inStream  = [MemoryStream]::new($bytes)
-        $gzip = [GZipStream]::new($inStream, [CompressionMode]::Decompress)
+        $gzip      = [GZipStream]::new($inStream, [CompressionMode]::Decompress)
         $gzip.CopyTo($outStream)
         $enc.GetString($outStream.ToArray())
     }
