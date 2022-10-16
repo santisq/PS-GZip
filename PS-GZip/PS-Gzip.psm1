@@ -8,6 +8,9 @@ using namespace System.Management.Automation.Language
 
 Add-Type -AssemblyName System.IO.Compression
 
+# All Credits to jborean93 on the EncodingTransformation Class
+# Source: https://gist.github.com/jborean93/50a517a8105338b28256ff0ea27ab2c8#file-get-extendedattribute-ps1
+
 class EncodingTransformation : ArgumentTransformationAttribute {
     [object] Transform([EngineIntrinsics] $EngineIntrinsics, [object] $InputData) {
         $outputData = switch($InputData) {
