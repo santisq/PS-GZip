@@ -27,6 +27,7 @@ PS /> Expand-GzipString H4sIAAAAAAAACvNIzcnJVyjPL8pJUQQAlRmFGwwAAAA=
 
 Hello world!
 ```
+
 - An example using Lorem Ipsum API
 
 ```powershell
@@ -41,6 +42,7 @@ Length
 
 (Expand-GzipString $compressedLoremIp) -eq $loremIp # => # Should be True
 ```
+
 - Compressing a File
 
 ```powershell
