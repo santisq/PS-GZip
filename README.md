@@ -28,7 +28,7 @@ PS /> Expand-GzipString H4sIAAAAAAAACvNIzcnJVyjPL8pJUQQAlRmFGwwAAAA=
 Hello world!
 ```
 
-- An example using Lorem Ipsum API
+- An example using [Bacon Ipsum](https://baconipsum.com) API
 
 ```powershell
 # Thanks https://baconipsum.com/ :D
