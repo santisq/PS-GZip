@@ -31,14 +31,16 @@ Hello world!
 - An example using Lorem Ipsum API
 
 ```powershell
-$loremIp = Invoke-RestMethod loripsum.net/api/10/long
+# Thanks https://baconipsum.com/ :D
+$loremIp = Invoke-RestMethod 'https://baconipsum.com/api/?type=all-meat&paras=100&start-with-lorem=1&format=text'
 $compressedLoremIp = Compress-GzipString $loremIp
-$loremIp, $compressedLoremIp | Select-Object Length
+@{ Expanded = $loremIp; Compressed = $compressedLoremIp }.GetEnumerator() |
+  Select-Object @{ N='Type'; E={ $_.Key }}, @{ N='Length'; E={ $_.Value.Length }}
 
-Length
-------
-  8101
-  4928
+Type       Length
+----       ------
+Compressed  13624
+Expanded    45033
 
 (Expand-GzipString $compressedLoremIp) -eq $loremIp # => # Should be True
 ```
